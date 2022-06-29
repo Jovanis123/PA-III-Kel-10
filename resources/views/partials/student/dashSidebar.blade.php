@@ -14,9 +14,11 @@
       <div class="mt-3 pb-3 mb-3">
         <div class="image text-center p-5">
             @if($user->avatar)
-                <img src="{{ asset('storage/avatars/') . $user->avatar }}" height="72px" width="72px" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('storage/avatars/' . $user->avatar) }}" height="72px" width="72px" 
+class="img-circle elevation-2" alt="User Image">
             @else
-                <img src="{{ asset('/storage/avatars/defaultAvatar.png') }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('static/avatar/img1.jpg') }}" class="img-circle elevation-2" alt="User 
+Image">
             @endif
             <div class="info mt-4">
               <a href="/Okemin/Profile" class="d-block font-weight-bold">{{ $user->name }}</a>
