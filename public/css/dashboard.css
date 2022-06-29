@@ -1,0 +1,18 @@
+
+
+.pages-wrapper{
+    padding: 3%;
+}
+
+.header-pages{
+    height: 70px;
+    background-color: #5b9cfe;
+    padding: 1%;
+    color: white;
+    font-weight: bold;
+}
+
+.item-pengumuman{
+    background-color: white;
+    height: 120px;
+}

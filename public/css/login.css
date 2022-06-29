@@ -1,0 +1,29 @@
+body{
+    background-color: #DDFFFD;
+}
+
+.login-wrapper{
+    margin-top: 5%;
+    padding: 4% 6% 6% 6%;
+    width: 960px;
+    height: 640px;
+    background-color: white;
+}
+
+.btn-primary{
+    background-color: #1665D8 !important;
+    width: 100%;
+}
+
+input[type=text], input[type=password]{
+    /* border: none;
+    border-bottom: 1px solid gray; */
+    border: none;
+	border-bottom: 2px solid #D1D1D4;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	/* width: 75%; */
+	transition: .2s;
+}
