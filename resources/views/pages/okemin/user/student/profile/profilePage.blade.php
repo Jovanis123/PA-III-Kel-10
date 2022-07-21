@@ -34,13 +34,13 @@
                             @if($student->photo)
                                 <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/avatars/') .  $student->avatar }}" alt="User profile picture">
                             @else
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('/storage/avatars/defaultAvatar.png') }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('static/avatar/img1.jpg') }}" alt="User profile picture">
                             @endif
                         </div>
 
                       <h3 class="profile-username text-center">{{ $student->name }}</h3>
 
-                      <p class="text-muted text-center">{{ $student->jabatan }}</p>
+                      <p class="text-muted text-center">{{ ucfirst($student->jabatan) }}</p>
 
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -80,7 +80,7 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Profile Details</a></li>
                             <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Change Password</a></li>
+                            <!--<li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Change Password</a></li>-->
                         </ul>
 
                         </div><!-- /.card-header -->
@@ -140,7 +140,7 @@
 
                                             <h6>Jabatan :</h6>
                                             @if($student->jabatan)
-                                                <p>{{ $student->jabatan }}</p>
+                                                <p>{{ ucfirst($student->jabatan) }}</p>
                                             @else
                                                 <p>Kosong...</p>
                                             @endif

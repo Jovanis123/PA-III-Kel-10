@@ -8,7 +8,9 @@
       <span class="brand-text font-weight-light">SMAN 1 Habinsaran</span>
 
     </a>
-    {{ Auth::user()->hasRole("Teacher") ? "yes" : "no" }}
+    
+    <!--{{ Auth::user()->hasRole("Teacher") ? "yes" : "no" }}-->
+    
     <!-- Sidebar -->
     <div class="sidebar ">
       <!-- Sidebar user (optional) -->
@@ -17,11 +19,11 @@
             @if($user->avatar)
                 <img src="{{ asset('storage/avatars/') . $user->avatar }}" height="72px" width="72px" class="img-circle elevation-2" alt="User Image">
             @else
-                <img src="{{ asset('/storage/avatars/defaultAvatar.png') }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('static/avatar/img1.jpg') }}" height="72px" width="72px" class="img-circle elevation-2" alt="User Image">
             @endif
             <div class="info mt-4">
               <a href="/Okemin/Profile" class="d-block font-weight-bold">{{ $user->name }}</a>
-              <a class="d-block text-muted">{{ $user->jabatan }}</a>
+              <a class="d-block text-muted">{{ ucfirst($user->jabatan) }}</a>
             </div>
         </div>
       </div>
@@ -36,7 +38,25 @@
                 <a href="{{ url('/Teacher')}}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                    Teacher's Home
+                    Dashboard
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                    <a href="{{ url('/Teacher/Pengumuman')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                        Pengumuman
+                        </p>
+                    </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ url('/Teacher/Quiz')}}" class="nav-link">
+                    <i class="nav-icon fas fa-pen"></i>
+                    <p>
+                        Quiz
                     </p>
                 </a>
             </li>
@@ -84,6 +104,30 @@
                         <a href="{{ url('/Teacher/Materi/List')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>List Materi</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-alt"></i>
+                    <p>
+                    Tugas
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.create.tugas')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Create Tugas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teacher.list.tugas')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List Tugas</p>
                         </a>
                     </li>
                 </ul>

@@ -32,7 +32,7 @@
                             @if($user->photo)
                                 <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/avatars' . $user->avatar) }}" alt="User profile picture">
                             @else
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('/storage/avatars/defaultAvatar.png') }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('static/avatar/img1.jpg') }}" alt="User profile picture">
                             @endif
                         </div>
 
@@ -420,7 +420,7 @@
 
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button name="submit" type="submit" class="btn btn-danger">Submit</button>
+                                            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </form>

@@ -17,7 +17,7 @@
                 <img src="{{ asset('storage/avatars/' . $user->avatar) }}" height="72px" width="72px" 
 class="img-circle elevation-2" alt="User Image">
             @else
-                <img src="{{ asset('static/avatar/img1.jpg') }}" class="img-circle elevation-2" alt="User 
+                <img src="{{ asset('static/avatar/img1.jpg') }}" class="img-circle elevation-2"  height="72px" width="72px" alt="User 
 Image">
             @endif
             <div class="info mt-4">
@@ -45,6 +45,15 @@ Image">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                         Pengumuman
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/Student/Quiz')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                        Quiz
                         </p>
                     </a>
                 </li>
@@ -86,6 +95,24 @@ Image">
                             <a href="{{ url('/Student/Materi/Mapel')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lihat Materi</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                        Tugas
+                        <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('student.tugas.mapel') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Lihat Tugas</p>
                             </a>
                         </li>
                     </ul>

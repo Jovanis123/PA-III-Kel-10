@@ -32,13 +32,13 @@
                             @if($user->photo)
                                 <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/avatars/') . $user->avatar }}" alt="User profile picture">
                             @else
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('/storage/avatars/defaultAvatar.png') }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('static/avatar/img1.jpg') }}" alt="User profile picture">
                             @endif
                         </div>
 
                       <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                      <p class="text-muted text-center">{{ $user->jabatan }}</p>
+                      <p class="text-muted text-center">{{ ucfirst($user->jabatan) }}</p>
 
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -48,7 +48,7 @@
                           <b>Kelas</b> <a class="float-right">{{ $user->kelas }}</a>
                         </li>
                         <li class="list-group-item">
-                          <b>Jabatan</b> <a class="float-right">{{ $user->jabatan }}</a>
+                          <b>Jabatan</b> <a class="float-right">{{ ucfirst($user->jabatan) }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>User Role</b> <a class="float-right">
@@ -355,7 +355,7 @@
                                     <div class="form-group row">
                                         <label for="inputName" class="col-sm-2 col-form-label">Current Password</label>
                                         <div class="col-sm-10">
-                                            <input name="current_password" type="password" class="form-control" id="inputName" placeholder="Your Current Password">
+                                            <input name="current_password" type="password" class="form-control" id="inputName" placeholder="Input your current password..">
                                             @if($errors->has('current_password'))
                                                 <div class="text-danger">
                                                     {{ $errors->first('current_password')}}
@@ -367,7 +367,7 @@
                                     <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">New Password</label>
                                             <div class="col-sm-10">
-                                                <input name="new_password" type="password" class="form-control" id="inputName" placeholder="Your New Password">
+                                                <input name="new_password" type="password" class="form-control" id="inputName" placeholder="Input your new password..">
                                                 @if($errors->has('new_password'))
                                                     <div class="text-danger">
                                                         {{ $errors->first('new_password')}}
@@ -379,7 +379,7 @@
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Confirm New Password</label>
                                         <div class="col-sm-10">
-                                            <input name="confirm_new_password" type="password" class="form-control" id="inputEmail" placeholder="Enter Your New Password, Again.">
+                                            <input name="confirm_new_password" type="password" class="form-control" id="inputEmail" placeholder="Input your confirmation password..">
                                             @if($errors->has('confirm_new_password'))
                                                 <div class="text-danger">
                                                     {{ $errors->first('confirm_new_password')}}
@@ -390,7 +390,7 @@
 
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button name="submit" type="submit" class="btn btn-danger">Submit</button>
+                                            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </form>

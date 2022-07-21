@@ -180,6 +180,18 @@
                             @endif
                         </div>
                     </div>
+                    
+                    <div class="form-group row">
+                        <label for="input10" class="col-sm-2 col-form-label">Password*</label>
+                        <div class="col-sm-10">
+                          <input name="password" type="password" class="form-control" id="input10" placeholder="Password">
+                            @if($errors->has('password'))
+                                <div class="text-danger">
+                                    {{ $errors->first('password')}}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="input11" class="col-sm-2 col-form-label">E-mail*</label>
@@ -204,7 +216,7 @@
                             @endif
                         </div>
                     </div>
-                    <button name="submit" type="submit" class="btn btn-block bg-gradient-primary">Upload</button>
+                    <button name="submit" type="submit" class="btn btn-md bg-gradient-primary">Simpan</button>
                 </form>
 
                 </div>

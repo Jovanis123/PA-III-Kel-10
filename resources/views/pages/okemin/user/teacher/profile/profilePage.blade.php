@@ -34,13 +34,13 @@
                             @if($teacher->photo)
                                 <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/avatars/' .  $teacher->avatar) }} " alt="User profile picture">
                             @else
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('/storage/avatars/defaultAvatar.png') }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('static/avatar/img1.jpg') }}" alt="User profile picture">
                             @endif
                         </div>
 
                       <h3 class="profile-username text-center">{{ $teacher->name }}</h3>
 
-                      <p class="text-muted text-center">{{ $teacher->jabatan }}</p>
+                      <p class="text-muted text-center">{{ ucfirst($teacher->jabatan) }}</p>
 
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -50,7 +50,7 @@
                           <b>Kelas</b> <a class="float-right">{{ $teacher->kelas }}</a>
                         </li>
                         <li class="list-group-item">
-                          <b>Jabatan</b> <a class="float-right">{{ $teacher->jabatan }}</a>
+                          <b>Jabatan</b> <a class="float-right">{{ ucfirst($teacher->jabatan) }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>User Role</b> <a class="float-right">
@@ -80,7 +80,7 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Profile Details</a></li>
                             <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Change Password</a></li>
+                            <!--<li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Change Password</a></li>-->
                         </ul>
 
                         </div><!-- /.card-header -->
@@ -140,7 +140,7 @@
 
                                             <h6>Jabatan :</h6>
                                             @if($teacher->jabatan)
-                                                <p>{{ $teacher->jabatan }}</p>
+                                                <p>{{ ucfirst($teacher->jabatan) }}</p>
                                             @else
                                                 <p>Kosong...</p>
                                             @endif

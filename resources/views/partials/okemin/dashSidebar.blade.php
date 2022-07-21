@@ -19,8 +19,8 @@
                 <img src="{{ asset('/storage/avatars/defaultAvatar.png') }}" class="img-circle elevation-2" alt="User Image">
             @endif
             <div class="info mt-4">
-              <a href="/Okemin/Profile" class="d-block font-weight-bold">{{ $user->name }}</a>
-              <a class="d-block text-muted">{{ $user->jabatan }}</a>
+              <a href="/Okemin/Profile" class="d-block font-weight-bold">{{ ucwords($user->name) }}</a>
+              <a class="d-block text-muted">{{ ucfirst($user->jabatan) }}</a>
             </div>
         </div>
       </div>

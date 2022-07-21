@@ -59,7 +59,7 @@
                         @if($user->avatar)
                             <img class="img-circle mx-auto d-block" width="200px"  src="{{ asset('storage/avatars') . $user->avatar }}" alt="User Avatar">
                         @else
-                            <img class="img-circle mx-auto d-block" width="200px"  src="{{ asset('/storage/avatars/defaultAvatar.png') }}" alt="User Avatar">
+                            <img class="img-circle mx-auto d-block" width="200px"  src="{{ asset('static/avatar/img1.jpg') }}" alt="User Avatar">
                         @endif
                     </div>
 

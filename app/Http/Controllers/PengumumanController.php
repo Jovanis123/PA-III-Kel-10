@@ -83,6 +83,14 @@ class PengumumanController extends Controller
         return view('pages.okemin.pengumuman.index', compact('data', 'user'));
     }
 
+    public function showToTeacher() 
+    {
+        $data = Pengumuman::paginate(10);
+        $user = Auth::user();
+
+        return view('pages.okemin.pengumuman.index', compact('data', 'user'));
+    }
+
     public function showById($id)
     {
         $data = Pengumuman::find($id);

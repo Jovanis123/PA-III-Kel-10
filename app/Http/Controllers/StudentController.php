@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Tugas;
 use App\Materi;
 use App\mataPelajaran;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class StudentController extends Controller
@@ -65,7 +67,7 @@ class StudentController extends Controller
     public function showProfile()
     {
     	$user = Auth::user();
-    	return view('pages.Student.profile.profilePage', compact('user', $user));
+    	return view('pages.student.profile.profilePage', compact('user', $user));
     }
 
     public function editProfile($id, Request $request)
@@ -173,5 +175,43 @@ class StudentController extends Controller
 
     /* -------------------------------------------- END OF MATERI SECTION ------------------------------------------ */
 
+    public function showMapelTugas() 
+    {
+        $user = Auth::user();
+        $mapels = mataPelajaran::get();
+    	return view('pages.student.tugas.showMapel', compact('user', 'mapels'));
+    }
+
+    public function showTugasList($id) 
+    {
+        $user = Auth::user();
+
+        $mapel = mataPelajaran::findOrFail($id);
+
+        $tugas = Tugas::where('mata_pelajaran_id', $mapel->id)->get();
+
+
+    	return view('pages.student.tugas.showTugasList', compact('user', 'mapel', 'tugas'));
+    }
+
+    public function showSingleTugas($id) 
+    {
+        $user = Auth::user();
+
+        $singleTugas = Tugas::findOrFail($id);
+
+        return view('pages.student.tugas.showSingleTugas', compact('user', 'singleTugas'));
+    }
+
+    public function downloadTugas($id) 
+    {
+        $user = Auth::user();
+
+        $fileTugas = Tugas::where('id', $id)->first();
+
+        return Storage::download($fileTugas->file_tugas);
+
+        return view('pages.student.tugas.showSingleTugas');
+    }
 
 }

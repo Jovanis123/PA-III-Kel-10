@@ -10,6 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeacherController;
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -121,6 +127,16 @@ Route::put('/Teacher/Materi/Update/{id}', 'TeacherController@updateMateri')->mid
 // Delete Materi - Teacher
 Route::get('/Teacher/Materi/Delete/{id}', 'TeacherController@deleteMateri')->middleware('role:Teacher');
 
+Route::middleware(['role:Teacher'])->group(function () {
+    Route::get('/teacher/tugas/create', [TeacherController::class, 'showCreateTugas'])->name('teacher.create.tugas');
+    Route::post('/teacher/tugas/save', [TeacherController::class, 'storeTugas'])->name('teacher.save.tugas');
+    Route::get('/teacher/tugas/list', [TeacherController::class, 'showTugasList'])->name('teacher.list.tugas');
+    Route::get('/teacher/tugas/list/search', [TeacherController::class, 'searchTugas'])->name('teacher.search.tugas');
+    Route::get('/teacher/tugas/edit/{id}', [TeacherController::class, 'showEditTugas'])->name('teacher.edit.tugas');
+    Route::put('/teacher/tugas/update/{id}', [TeacherController::class, 'updateTugas'])->name('teacher.update.tugas');
+    Route::get('/teacher/tugas/delete/{id}', [TeacherController::class, 'deleteTugas'])->name('teacher.delete.tugas');
+});
+
 /**
  * Route For Materi
  * STUDENT
@@ -130,6 +146,11 @@ Route::get('/Student/Materi/Mapel', 'StudentController@showMapel')->middleware('
 Route::get('/Student/Materi/List/{id}', 'StudentController@showMateriList')->middleware('role:Student');
 Route::get('/Student/Materi/singleMateri/{id}', 'StudentController@showSingleMateri')->middleware('role:Student');
 Route::get('/Student/Materi/singleMateri/exportPdf/{id}', 'StudentController@exportPdf')->middleware('role:Student');
+
+Route::get('/student/tugas/mapel', [StudentController::class, 'showMapelTugas'])->middleware('role:Student')->name('student.tugas.mapel');
+Route::get('/student/tugas/mapel/list/{id}', [StudentController::class, 'showTugasList'])->middleware('role:Student')->name('student.tugas.mapel.list');
+Route::get('/student/tugas/mapel/list/tugas/{id}', [StudentController::class, 'showSingleTugas'])->middleware('role:Student')->name('student.tugas.mapel.list.single');
+Route::get('/student/tugas/mapel/list/tugas/download/{id}', [StudentController::class, 'downloadTugas'])->middleware('role:Student')->name('student.tugas.mapel.list.tugas.download');
 
 /*
 /**
@@ -203,6 +224,29 @@ Route::post('/Okemin/Pengumuman/store', 'PengumumanController@store')->middlewar
 Route::get('/Okemin/Pengumuman/edit/{id}', 'PengumumanController@edit')->middleware('role:Admin');
 Route::patch('/Okemin/Pengumuman/update/', 'PengumumanController@update')->middleware('role:Admin');
 Route::get('/Okemin/Pengumuman/destroy/{id}', 'PengumumanController@destroy')->middleware('role:Admin');
+
+Route::middleware(['role:Teacher'])->group(function () {
+    Route::get('/Teacher/Pengumuman', 'PengumumanController@showToTeacher')->name('teacher.show.pengumuman');
+    Route::get('/Teacher/Pengumuman/detail/{id}', 'PengumumanController@showById')->name('teacher.show.pengumuman.detail');
+});
+
+// QUIZ TEACHER
+Route::get('/Teacher/Quiz/', 'QuizController@show')->middleware('role:Teacher');
+Route::get('/Teacher/Quiz/{id}', 'SoalController@showById')->middleware('role:Teacher');
+Route::post('/Teacher/Quiz/store', 'QuizController@store')->middleware('role:Teacher');
+Route::post('/Teacher/Quiz/edit/{id}', 'QuizController@edit')->middleware('role:Teacher');
+Route::patch('/Teacher/Quiz/update', 'QuizController@update')->middleware('role:Teacher');
+Route::get('/Teacher/Quiz/destroy/{id}', 'QuizController@destroy')->middleware('role:Teacher');
+
+Route::post('/Teacher/Quiz/soal/store', 'SoalController@store')->middleware('role:Teacher');
+Route::get('/Teacher/Quiz/soal/edit/{id}', 'SoalController@edit')->middleware('role:Teacher');
+Route::patch('/Teacher/Quiz/soal/update', 'SoalController@update')->middleware('role:Teacher');
+Route::get('/Teacher/Quiz/soal/destroy/{id}', 'SoalController@destroy')->middleware('role:Teacher');
+
+// QUIZ STUDENT
+Route::get('/Student/Quiz/', 'QuizController@showByStudent')->middleware('role:Student');
+Route::get('/Student/Quiz/soal/{id}', 'SoalController@showDetailByStudent')->middleware('role:Student');
+Route::post('/Student/Quiz/store', 'SoalController@storeStudentQuiz')->middleware('role:Student');
 
 
 Route::get('/Teacher/Pengumuman/', 'PengumumanController@show')->middleware('role:Teacher');

@@ -1,18 +1,17 @@
 @extends('layouts.dash')
 
-@section('title', 'Admins Home')
+@section('title', 'Teachers Home')
 
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="pages-wrapper">
-        <div class="header-pages rounded">
-            <h3><span class="fas fa-bullhorn mr-4"></span>Pengumuman</h3>
-        </div>
-        @if (Auth::user()->hasRole('Admin'))
-            <button type="button" class="btn btn-success mt-5" data-toggle="modal" data-target="#exampleModal">
-                <span class="fas fa-plus"> </span> Menambah Pengumuman
+<div class="pages-wrapper">
+    <div class="header-pages rounded">
+        <h3><span class="fas fa-pen mr-4"></span>Quiz</h3>
+    </div>
+
+        @if (Auth::user()->hasRole('Teacher'))
+            <button type="button" class="btn btn-success mt-5" data-toggle="modal" data-target="#modalQuiz">
+                <span class="fas fa-plus"> </span> Menambah Quiz
             </button>
-        @elseif(Auth::user()->hasRole('Student'))
         @endif
 
 
@@ -24,15 +23,13 @@
         @endif
 
         @foreach ($data as $item)
+
             <div class="item-pengumuman mt-5 p-4 shadow-sm rounded">
                 <div class="row">
                     <div class="col-lg-10">
 
                         <a
-                            href=" @if (Auth::user()->hasRole('Admin')) /Okemin/Pengumuman/detail/{{ $item->id }}
-                            @elseif(Auth::user()->hasRole('Student'))/Student/Pengumuman/detail/{{ $item->id }} 
-                            @elseif(Auth::user()->hasRole('Teacher'))/Teacher/Pengumuman/detail/{{ $item->id }} 
-                            @endif">
+                            href="/Teacher/Quiz/{{ $item->id }}">
                             <h5 class="font-weight-bold">
                                 {{ $item->judul }}
                             </h5>
@@ -42,16 +39,15 @@
                             {{ $item->created_at }}
                         </p>
                     </div>
-                    @if (Auth::user()->hasRole('Admin'))
+                    @if (Auth::user()->hasRole('Teacher'))
                         <div class="col mt-3">
-                            <a href="/Okemin/Pengumuman/destroy/{{ $item->id }}" style="font-size: 26px"><span
+                            <a href="/Teacher/Quiz/destroy/{{ $item->id }}" style="font-size: 26px"><span
                                     class="fas fa-trash text-danger"></span></a>
                         </div>
                         <div class="col mt-3">
-                            <a href="/Okemin/Pengumuman/edit/{{ $item->id }}" style="font-size: 26px"><span
+                            <a href="/Teacher/Quiz/edit/{{ $item->id }}" style="font-size: 26px"><span
                                     class="fas fa-pen-to-square text-primary"></span></a>
                         </div>
-                    @elseif(Auth::user()->hasRole('Student'))
                     @endif
 
                 </div>
@@ -59,21 +55,22 @@
         @endforeach
     </div>
 
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalQuiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Menambah pengumuman</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Menambah Quiz</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/Okemin/Pengumuman/store" enctype="multipart/form-data" method="POST" class="p-4">
+                    <form action="/Teacher/Quiz/store" method="POST" class="p-4">
                         @csrf
-
                         <div class="form-group">
+                            <input type="hidden" name="id_quiz" value="">
                             <label for="judul">Judul</label>
                             <input type="text" class="form-control" id="judul" aria-describedby="emailHelp"
                                 minlength="5" name="judul">
@@ -81,12 +78,7 @@
                         <div class="form-group">
                             <label for="judul">Deskripsi</label>
                             <textarea name="deskripsi" id="deskripsi" rows="10" cols="80" minlength="5">
-                            </textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="judul">Upload file</label>
-                            <input type="file" class="form-control" id="file" aria-describedby="emailHelp"
-                                name="file">
+                        </textarea>
                         </div>
 
                         <div class="modal-footer">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Materi;
+use App\Tugas;
 use App\Kelas;
 use App\mataPelajaran;
 use App\Rules\MatchOldPassword;
@@ -76,7 +77,7 @@ class TeacherController extends Controller
     public function showProfile()
     {
     	$user = Auth::user();
-    	return view('pages.Teacher.profile.profilePage', compact('user'));
+    	return view('pages.teacher.profile.profilePage', compact('user'));
     }
 
     public function editProfile($id, Request $request)
@@ -422,5 +423,125 @@ class TeacherController extends Controller
         return dd( $request->input('question.*') );
 
 
+    }
+
+    public function showCreateTugas()
+    {
+        $user = Auth::user(); // Untuk Photo Profile
+        $mapel = mataPelajaran::all(); // Untuk Show List Mapel - Select
+        $kelas = Kelas::all(); // Untuk Show List Kelas - Select
+
+        return view('pages.teacher.tugas.createTugas', compact('user', 'mapel', 'kelas'));
+    }
+
+    public function storeTugas(Request $request)
+    {
+        $request->validate(
+            [
+                'mapel' => 'required',
+                'kelas' => 'required',
+                'judul_tugas' => 'required',
+                'file_tugas' => 'required'
+            ],
+            [
+                'mapel.required' => 'Mata pelajaran tidak boleh kosong',
+                'kelas.required' => 'Kelas tidak boleh kosong',
+                'judul_tugas.required' => 'Judul tugas tidak boleh kosong',
+                'file_tugas.required' => 'File tugas tidak boleh kosong'
+            ]
+        );
+
+        $fileName = time() . '.' . request()->file_tugas->getClientOriginalExtension();
+
+        $fileTugas = $request->file_tugas->storeAs('file-tugas', $fileName);
+
+        $save = Tugas::create([
+            'mata_pelajaran_id' => $request->mapel,
+            'kelas_id' => $request->kelas,
+            'judul_tugas' => $request->judul_tugas,
+            'file_tugas' => $fileTugas
+        ]);
+        
+        // dd($save);
+
+        if($save){
+            return back()->with('success', 'Anda berhasil menambahkan tugas.');
+        }else{
+            return back()->with('fail', 'Anda gagal menambahkan tugas.');
+        }
+
+       
+    }
+
+    public function showTugasList() 
+    {
+        $user = Auth::user(); // Untuk Photo Profile
+        $tugas = Tugas::all();
+
+        return view('pages.teacher.tugas.showTugas', compact('tugas', 'user'));
+    }
+
+    public function searchTugas(Request $request) 
+    {
+        $user = Auth::user(); // Untuk Photo Profile
+
+        // menangkap data pencarian
+        $search = $request->table_search;
+
+        // mengambil data dari table materi sesuai pencarian data
+        $search = Tugas::where('mata_pelajaran_id', 'like', "%" . $search . "%")
+            ->orWhere('kelas_id', 'like', "%" . $search . "%")
+            ->orWhere('judul_tugas', 'like', "%" . $search . "%")
+            ->get();
+
+        $tugas = Tugas::all();
+
+        // mengirim data materi ke view index
+        return view('pages.teacher.tugas.showTugas', compact('search', 'user', 'tugas'));
+    }
+
+    public function showEditTugas($id) 
+    {
+
+        $user = Auth::user(); // Untuk Photo Profile
+        $mapel = mataPelajaran::all(); // Untuk Show List Mapel - Select
+        $kelas = Kelas::all(); // Untuk Show List Kelas - Select
+        $tugas = Tugas::findOrFail($id);
+
+        return view('pages.teacher.tugas.editTugas', compact('user', 'mapel', 'kelas', 'tugas',));
+    }
+
+    public function updateTugas(Request $request, $id) 
+    {
+        $this->validate($request, [
+            'mapel' => 'required',
+            'kelas' => 'required',
+            'judul_tugas' => 'required',
+            'file_tugas' => 'required',
+        ]);
+
+        $fileName = time() . '.' . request()->file_tugas->getClientOriginalExtension();
+
+        $fileTugas = $request->file_tugas->storeAs('file-tugas', $fileName);
+
+        $save = Tugas::where('id', $id)->update([
+            'mata_pelajaran_id' => $request->mapel,
+            'kelas_id' => $request->kelas,
+            'judul_tugas' => $request->judul_tugas,
+            'file_tugas' => $fileTugas,
+        ]);
+
+        if($save) {
+            return back()->with('success', 'Tugas berhasil diupdate.');
+        }else{
+            return back()->with('fail', 'Tugas gagal diupdate.');
+        }
+    }
+
+    public function deleteTugas($id) 
+    {
+        $tugas = Tugas::findOrFail($id);
+        $tugas->delete();
+        return redirect()->back()->with('success', 'Tugas berhasil dihapus.');
     }
 }

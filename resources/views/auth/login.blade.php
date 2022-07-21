@@ -90,7 +90,7 @@
                 <div class="form-group mt-5">
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Username</span>
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                         <input type="text"
                             class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
                             placeholder="Masukkan username" aria-label="Username" 
@@ -103,7 +103,7 @@ aria-describedby="basic-addon1" name="login"
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Password</span>
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                         <input type="password" class="form-control" placeholder="Masukkan password" 
 aria-label="Username"
                             aria-describedby="basic-addon1" @error('password') is-invalid @enderror" name="password"
